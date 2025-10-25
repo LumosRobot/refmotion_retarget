@@ -1,0 +1,98 @@
+#Gesture:
+#
+#
+Walk:
+  - Qiao_S35_34_poses
+  - Qiao_S35_01_poses
+  - Qiao_S35_12_poses
+  - Qiao_S35_09_poses
+  - Qiao_S35_32_poses
+  - Qiao_S35_06_poses
+  - Qiao_S35_30_poses
+  - Qiao_S35_07_poses
+Gesture:
+  - HumanEva_HumanEva_S1_Gestures_1_poses
+  - HumanEva_HumanEva_S1_Gestures_3_poses
+Walkss:
+  - HumanEva_HumanEva_S2_Gestures_1_poses
+  - HumanEva_HumanEva_S2_Gestures_3_poses
+  - HumanEva_HumanEva_S3_Gestures_1_poses
+  - HumanEva_HumanEva_S3_Gestures_3_poses
+  - Qiao_S29_Gesture_17_poses
+  # Only folders 01 to 35 have been checked so far.
+  - CMU_CMU_07_07_04_poses # walk
+  - CMU_CMU_07_07_05_poses # walk
+  - CMU_CMU_07_07_06_poses # walk
+Other:
+  - CMU_CMU_07_07_07_poses # walk
+  - CMU_CMU_07_07_08_poses # walk
+  - CMU_CMU_07_07_09_poses # walk
+  - CMU_CMU_07_07_10_poses # walk
+  - CMU_CMU_07_07_11_poses # walk
+  - CMU_CMU_07_07_12_poses # walk
+  - CMU_CMU_08_08_01_poses # walk
+  - CMU_CMU_08_08_02_poses # walk
+  - CMU_CMU_08_08_03_poses # walk
+  - CMU_CMU_08_08_04_poses # walk
+  - CMU_CMU_08_08_05_poses # walk
+  - CMU_CMU_08_08_07_poses # walk
+  - CMU_CMU_08_08_08_poses # walk
+  - CMU_CMU_35_35_03_poses # walk
+  - CMU_CMU_35_35_04_poses # walk
+  - CMU_CMU_35_35_05_poses # walk
+  - CMU_CMU_35_35_06_poses # walk
+  - CMU_CMU_35_35_07_poses # walk
+  - CMU_CMU_35_35_08_poses # walk
+  - CMU_CMU_35_35_09_poses # walk
+  - CMU_CMU_35_35_10_poses # walk
+  - CMU_CMU_35_35_11_poses # walk
+  - CMU_CMU_07_07_03_poses # walk
+  - CMU_CMU_06_06_04_poses # walk
+  - CMU_CMU_07_07_01_poses # walk
+  - CMU_CMU_07_07_02_poses # walk
+  - CMU_CMU_35_35_34_poses # walk
+  - CMU_CMU_02_02_02_poses # fast walk
+  - CMU_CMU_02_02_03_poses # run
+  - CMU_CMU_02_02_08_poses # play tennis
+  - CMU_CMU_06_06_01_poses # walk
+  - CMU_CMU_08_08_09_poses # walk
+  - CMU_CMU_08_08_10_poses # walk
+  - CMU_CMU_08_08_11_poses # walk
+  - CMU_CMU_35_35_02_poses # walk
+  - CMU_CMU_13_13_21_poses # standing and waving the hand, like wiping a window
+  - CMU_CMU_35_35_13_poses # walk
+  - CMU_CMU_13_13_22_poses # standing and waving the hand fastly
+  - CMU_CMU_15_15_01_poses # leisurely pacing
+  - CMU_CMU_15_15_03_poses # anxiously pacing
+  - CMU_CMU_15_15_09_poses # pacing
+  - CMU_CMU_18_19_Justin_18_08_poses # stand in music
+  - CMU_CMU_18_19_Justin_18_10_poses # in music
+  - CMU_CMU_26_26_03_poses # simple robot dance
+  - CMU_CMU_27_27_03_poses # random hand gestures
+  - CMU_CMU_27_27_06_poses # random hand gestures
+  - CMU_CMU_29_29_01_poses # walking with head down
+  - CMU_CMU_29_29_06_poses # random hand gestures
+  - CMU_CMU_29_29_13_poses # random hand gestures
+  - CMU_CMU_35_35_01_poses # walk
+  - CMU_CMU_35_35_02_poses # walk
+  - CMU_CMU_02_02_01_poses # walk
+  - CMU_CMU_35_35_03_poses # walk
+  - CMU_CMU_35_35_04_poses # walk
+  - CMU_CMU_35_35_05_poses # walk
+  - CMU_CMU_35_35_06_poses # walk
+  - CMU_CMU_35_35_07_poses # walk
+  - CMU_CMU_35_35_08_poses # walk
+  - CMU_CMU_35_35_09_poses # walk
+  - CMU_CMU_35_35_10_poses # walk
+  - CMU_CMU_35_35_11_poses # walk
+  - CMU_CMU_35_35_12_poses # walk
+  - CMU_CMU_35_35_13_poses # walk
+  - CMU_CMU_35_35_14_poses # walk
+  - CMU_CMU_35_35_15_poses # walk
+  - CMU_CMU_35_35_16_poses # walk
+  - CMU_CMU_35_35_28_poses # walk
+  - CMU_CMU_35_35_29_poses # walk
+  - CMU_CMU_35_35_30_poses # walk
+  - CMU_CMU_35_35_31_poses # walk
+  - CMU_CMU_35_35_32_poses # walk
+  - CMU_CMU_35_35_33_poses # walk
