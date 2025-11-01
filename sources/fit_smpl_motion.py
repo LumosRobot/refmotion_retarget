@@ -70,11 +70,12 @@ def process_motion(key_name, key_name_to_pkls, cfg):
     """
     device = torch.device("cpu")
     humanoid_fk = Humanoid_Batch(cfg.robot)  # Load forward kinematics model
-    smpl_parser = SMPL_Parser(model_path="data/smpl", gender="neutral")
+    smpl_parser = SMPL_Parser(model_path="./../data/smpl", gender="neutral")
 
     # Load shape and scale parameters
     logger.info(f"fit_smpl_motion loading shape.pkl at data/motions/{cfg.robot.humanoid_type}/fit_shape/shape_optimized_v1.pkl")
-    beta_new, scale = joblib.load(f"data/motions/{cfg.robot.humanoid_type}/fit_shape/shape_optimized_v1.pkl")
+    data_root = cfg.get("data_root", None)
+    beta_new, scale = joblib.load(f"{data_root}/motions/{cfg.robot.humanoid_type}/fit_shape/shape_optimized_v1.pkl")
     robot_joint_names_augment = humanoid_fk.body_names_augment
     num_augment_joint = len(cfg.robot.extend_config)
     robot_joint_pick = [i[0] for i in cfg.robot.joint_matches]
@@ -200,7 +201,7 @@ def process_motion(key_name, key_name_to_pkls, cfg):
 
     return all_data
 
-@hydra.main(version_base=None, config_path="./data/cfg", config_name="config")
+@hydra.main(version_base=None, config_path="./../data/cfg", config_name="config")
 def main(cfg: DictConfig) -> None:
     """
     Main function to process AMASS motion data and save the results.
@@ -241,14 +242,15 @@ def main(cfg: DictConfig) -> None:
         if data is not None:
             all_data[key_name] = data
 
-    os.makedirs(f"data/motions/{cfg.robot.humanoid_type}/fit_motion", exist_ok=True)
-    logger.info(f"saving fit data to data/motions/{cfg.robot.humanoid_type}/fit_motion/{cfg.motion_name}.pkl ...")
-    joblib.dump(all_data, f"data/motions/{cfg.robot.humanoid_type}/fit_motion/{cfg.motion_name}.pkl")
+    data_root = cfg.get("data_root", None)
+    os.makedirs(f"{data_root}/motions/{cfg.robot.humanoid_type}/fit_motion", exist_ok=True)
+    logger.info(f"saving fit data to {data_root}/motions/{cfg.robot.humanoid_type}/fit_motion/{cfg.motion_name}.pkl ...")
+    joblib.dump(all_data, f"{data_root}/motions/{cfg.robot.humanoid_type}/fit_motion/{cfg.motion_name}.pkl")
 
     # saving npz for lus2_amp cfg
     for key_name, data in all_data.items():
         np.savez(
-            f"data/motions/{cfg.robot.humanoid_type}/fit_motion/{key_name}.npz",
+            f"{data_root}/motions/{cfg.robot.humanoid_type}/fit_motion/{key_name}.npz",
             dof_names=data["joint_names"],
             body_names=data["body_names"],
             dof_positions=data["dof_pos"], 
@@ -259,7 +261,7 @@ def main(cfg: DictConfig) -> None:
             body_angular_velocities=data["global_angular_velocity"],
             fps=data["fps"]
         )
-        logger.info(f"saving fit data to data/motions/{cfg.robot.humanoid_type}/fit_motion/{key_name}.npz ...")
+        logger.info(f"saving fit data to {data_root}/motions/{cfg.robot.humanoid_type}/fit_motion/{key_name}.npz ...")
 
 
     return 0

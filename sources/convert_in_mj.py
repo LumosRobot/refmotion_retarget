@@ -220,7 +220,7 @@ def main(cfg : DictConfig) -> None:
         # reset trans_offset to original point
         init_trans = motion_data[key]["root_trans_offset"][0,:]
         motion_data[key]["root_trans_offset"][:,:2]-=init_trans[:2]
-        motion_data[key]["fps"] = 33
+        #motion_data[key]["fps"] = 33
         fps = motion_data[key]["fps"]
         logger.info(f"data name: {key}, fps: {fps}")
 
@@ -299,7 +299,7 @@ def main(cfg : DictConfig) -> None:
                 time_step += dt
             
             # visualizing smpl joints
-            if False:
+            if True:
                 for i in range(smpl_joints.shape[1]):
                     viewer.user_scn.geoms[i].pos = smpl_joints[curr_frame, i]
 

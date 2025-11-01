@@ -41,7 +41,7 @@ logger = logging.getLogger("fit_smpl_shape")
 
 
 
-@hydra.main(version_base=None, config_path="./data/cfg", config_name="config")
+@hydra.main(version_base=None, config_path="./../data/cfg", config_name="config")
 def main(cfg : DictConfig) -> None:
     
     humanoid_fk = Humanoid_Batch(cfg.robot) # load forward kinematics model
@@ -69,7 +69,7 @@ def main(cfg : DictConfig) -> None:
         pose_aa_stand[:, SMPL_BONE_ORDER_NAMES.index(modifier_key)] = sRot.from_euler("xyz", eval(modifier_value),  degrees = False).as_rotvec()
 
     pose_aa_stand = torch.from_numpy(pose_aa_stand.reshape(-1, 72)) # initial state pose (aa)
-    smpl_parser_n = SMPL_Parser(model_path="data/smpl", gender="neutral")
+    smpl_parser_n = SMPL_Parser(model_path="./../data/smpl", gender="neutral")
 
     ###### Shape fitting
     trans = torch.zeros([1, 3]) # smpl model root pos
@@ -143,8 +143,9 @@ def main(cfg : DictConfig) -> None:
         ax.legend()
         plt.show()
 
-    os.makedirs(f"data/motions/{cfg.robot.humanoid_type}/fit_shape", exist_ok=True)
-    joblib.dump((beta_new.detach(), scale), f"data/motions/{cfg.robot.humanoid_type}/fit_shape/shape_optimized_v1.pkl") # V2 has hip joints
+    data_root = cfg.get("data_root", None)
+    os.makedirs(f"{data_root}/motions/{cfg.robot.humanoid_type}/fit_shape", exist_ok=True)
+    joblib.dump((beta_new.detach(), scale), f"{data_root}/motions/{cfg.robot.humanoid_type}/fit_shape/shape_optimized_v1.pkl") # V2 has hip joints
     logger.info(f"fit_smpl_shape saving shape.pkl at data/motions/{cfg.robot.humanoid_type}/fit_shape/shape_optimized_v1.pkl")
 
     return 0
