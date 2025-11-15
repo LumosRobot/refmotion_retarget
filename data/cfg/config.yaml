@@ -1,6 +1,6 @@
 defaults:
   - _self_
-  - robot: unitree_h1_fitting
+  - robot: lumos_lus2_fitting
   - motion_filter: lumos_motion_filter
 
 project_name: "refmotion retarget"
@@ -29,6 +29,9 @@ collect_dataset: False
 disable_multiprocessing: True
 amass_root: ./../data/AMASS
 data_root: ./../../
+gmr:
+  smplx_folder: ./../data/
+  robot: lumos_lus2
 
 
 ####### Testing Configs. ########

@@ -3,9 +3,9 @@ right_foot_name: 'r_foot_roll'
 left_foot_name: 'l_foot_roll'
 
 asset:
-  assetRoot: "/home/thomas/workspace/lumos_ws/lumos_rl_gym/resources/robots/lus2/"
-  assetFileName: "mjcf/lus2_joint25.xml"
-  urdfFileName: "urdf/lus2_joint25.urdf"
+  assetRoot: "./../../lumos_assets/lus2/"
+  assetFileName: "mjcf/lus2.xml"
+  urdfFileName: "urdf/lus2.urdf"
 
 extend_config:
   - joint_name: "head_link"

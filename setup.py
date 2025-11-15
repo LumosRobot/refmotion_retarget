@@ -17,13 +17,13 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="humanoid_demo_retarget",
+    name="refmotion_retarget",
     version="0.1.0",
     packages=find_packages(),
     description="Retarget humanoid reference motions",
-    python_requires="==3.8.20",
+    python_requires=">=3.10",
     install_requires=[
-        "mujoco",
+        "mujoco==3.3.7",
         "mujoco-python-viewer",
         "numpy",
         "pytorch_lightning",
@@ -58,5 +58,18 @@ setup(
         "gdown",
         "scikit-image",
         "glfw",
+        "hydra-core",
+        "loop_rate_limiters",
+    "mink",
+    "qpsolvers[proxqp]",
+    "rich",
+    "tqdm",
+    "opencv-python",
+    "natsort",
+    "psutil",
+    "smplx @ git+https://github.com/vchoutas/smplx",
+    "protobuf",
+    "redis[hiredis]",
+    "imageio[ffmpeg]",
     ],
 )
