@@ -21,6 +21,7 @@ import joblib
 import hydra
 from omegaconf import DictConfig, OmegaConf
 from utils.torch_humanoid_batch import Humanoid_Batch
+from utils.load_amass import qpos_to_pose
 from easydict import EasyDict
 import hydra
 
@@ -216,6 +217,22 @@ def save_motion_example(curr_motion, curr_motion_key, motion_file, joint_names, 
     joblib.dump({curr_motion_key: saved_data}, save_path)
     logger.info(f"✅ Saved motion with shape {all_data.shape} and fps: {fps}: {curr_motion_key} → {save_path}")
 
+def load_csv(cfg, motion_file, joint_names):
+
+    
+    import pandas as pd
+    logger.info(f"[convert_csv2pkl] Loading CSV: {motion_file}")
+    # Load CSV
+    df = pd.read_csv(motion_file)
+    fields = ["root_pos_"+ key for key in ["x", "y", "z"]] +  ["root_quat_"+ key for key in ["w", "x", "y", "z"]]
+    fields.extend([key+"_pos" for key in joint_names])
+    qpos = df[fields].values
+    fps = float(df["fps"][0])
+    
+    motion_data = {cfg.motion_name: qpos_to_pose(cfg, qpos, fps)}
+    
+    return motion_data
+
 
 @hydra.main(version_base=None, config_path="./../data/cfg", config_name="config")
 def main(cfg : DictConfig) -> None:
@@ -231,9 +248,15 @@ def main(cfg : DictConfig) -> None:
     
     # loading retargeted data 
     motion_file = f"{cfg.data_root}/motions/{cfg.robot.humanoid_type}/fit_motion/{cfg.motion_name}.pkl"
-    logger.info(f"Motion file is: {motion_file}")
-    motion_data = joblib.load(motion_file)
-    motion_data_keys = list(motion_data.keys())
+    if os.path.exists(motion_file):
+        logger.info(f"Motion file is: {motion_file}")
+        motion_data = joblib.load(motion_file)
+        motion_data_keys = list(motion_data.keys())
+    else:
+        motion_file = f"{cfg.data_root}/motions/{cfg.robot.humanoid_type}/fit_motion/{cfg.motion_name}.csv"
+        logger.info(f"PKL not found, converting CSV: {motion_file}")
+        motion_data = load_csv(cfg, motion_file, joint_names)
+        motion_data_keys = list(motion_data.keys())
 
     logger.info(f"Motion keys: {motion_data_keys}")
 

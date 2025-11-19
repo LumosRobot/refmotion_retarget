@@ -9,6 +9,8 @@ from omegaconf import DictConfig
 import glob
 import os
 import logging
+from .torch_humanoid_batch import Humanoid_Batch
+from scipy.spatial.transform import Rotation as sRot
 logging.basicConfig(
     level=logging.INFO,  # Set the minimum logging level
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'  # Define the log message format
@@ -171,3 +173,48 @@ def save_processed_data(all_data: Dict, cfg: DictConfig) -> int:
     except Exception as e:
         logger.error(f"Error saving processed data: {e}")
         return 1
+
+
+
+def qpos_to_pose(cfg, qpos: [list, np.array], fps: float):
+
+    if isinstance(qpos, list):
+        qpos = np.asarray(qpos)
+
+    # root pos
+    root_pos = qpos[:, :3]
+
+    # quaternion wxyz → xyzw
+    root_rot = qpos[:, 3:7][:, [1, 2, 3, 0]]
+
+    # joint dofs
+    dof_pos = qpos[:, 7:]
+    frame_num, dof_num = dof_pos.shape
+
+    humanoid_fk = Humanoid_Batch(cfg.robot)
+    num_augment = len(cfg.robot.extend_config)
+
+    # allocate
+    pose_aa = np.zeros((frame_num, 1 + dof_num + num_augment, 3))
+
+    # convert root rot
+    pose_aa[:, 0] = sRot.from_quat(root_rot).as_rotvec()
+
+    # joint axis-angle = axis * angle
+    axis = humanoid_fk.dof_axis  # (dof_num, 3)
+    pose_aa[:, 1:1+dof_num] = dof_pos[..., None] * axis.cpu().numpy()
+
+    motion_data = EasyDict(
+        joint_names=humanoid_fk.joint_names,
+        body_names=humanoid_fk.body_names,
+        pose_aa=pose_aa,
+        fps=fps,
+        root_trans=root_pos,
+        root_trans_offset=root_pos.copy(),
+        root_rot=root_rot,
+        dof_pos=dof_pos,
+        dof_vels=None
+    )
+
+    return motion_data
+
